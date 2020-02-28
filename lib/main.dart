@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:features_testing/app/app_module.dart';
 
-void main() => runApp(AppModule());
+import 'injection_container.dart' as injection;
+import 'src/app_widget.dart';
+
+void main() {
+  injection.init();
+  runApp(AppWidget());
+}
+
+
