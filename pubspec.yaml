@@ -7,10 +7,12 @@ environment:
   sdk: ">=2.5.0 <3.0.0"
 
 dependencies:
+  flutter_bloc: ^3.2.0
+  bloc: ^3.0.0
+  get: ^1.10.5
   get_it: ^4.0.0
   auto_route: ^0.3.0
   dio: ^3.0.7
-  rxdart: ^0.22.6
   flutter:
     sdk: flutter
 

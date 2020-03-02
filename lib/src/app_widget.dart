@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'routes/routes.gr.dart';
 
@@ -7,7 +8,8 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateRoute: Routes.onGenerateRoute,
-      initialRoute: "/",
+      initialRoute: Routes.home,
+      navigatorKey: Get.key,
     );
   }
 }
