@@ -1,19 +1,18 @@
-import '../../models/product.dart';
+part of 'products_bloc.dart';
+
 
 abstract class ProductsState {}
 
-class ProductsEmpty extends ProductsState {}
+class ProductsLoading extends ProductsState {}
 
-class ProductsLoadInProgress extends ProductsState {}
-
-class ProductsLoadSuccess extends ProductsState {
+class ProductsLoaded extends ProductsState {
   final List<Product> products;
 
-  ProductsLoadSuccess(this.products);
+  ProductsLoaded(this.products);
 }
 
-class ProductsLoadFailure extends ProductsState {
+class ProductsFailure extends ProductsState {
   final String error;
 
-  ProductsLoadFailure(this.error);
+  ProductsFailure(this.error);
 }

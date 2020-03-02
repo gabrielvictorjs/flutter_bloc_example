@@ -1,6 +1,4 @@
-import '../../models/product.dart';
-import '../../repositories/product_repository.dart';
-import 'bloc.dart';
+part of 'products_bloc.dart';
 
 abstract class ProductsEvent {
   Stream<ProductsState> execute(
@@ -21,10 +19,10 @@ class ProductsReordered implements ProductsEvent {
   ) async* {
     int _newIndex = newIndex;
     if (newIndex > oldIndex) _newIndex -= 1;
-    if (state is ProductsLoadSuccess) {
+    if (state is ProductsLoaded) {
       Product product = state.products.removeAt(oldIndex);
       state.products.insert(_newIndex, product);
-      yield ProductsLoadSuccess(state.products);
+      yield ProductsLoaded(state.products);
     }
   }
 }
@@ -35,12 +33,12 @@ class ProductsStarted implements ProductsEvent {
     ProductRepository repository,
     ProductsState state,
   ) async* {
-    yield ProductsLoadInProgress();
+    yield ProductsLoading();
     try {
       final products = await repository.fetch();
-      yield products.isEmpty ? ProductsEmpty() : ProductsLoadSuccess(products);
+      yield ProductsLoaded(products);
     } on String catch (e) {
-      yield ProductsLoadFailure(e);
+      yield ProductsFailure(e);
     }
   }
 }
@@ -53,7 +51,7 @@ class ProductsRefreshed implements ProductsEvent {
   ) async* {
     try {
       final products = await repository.fetch();
-      yield products.isEmpty ? ProductsEmpty() : ProductsLoadSuccess(products);
+      yield ProductsLoaded(products);
     } catch (e) {
       yield state;
     }
