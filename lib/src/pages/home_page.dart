@@ -19,6 +19,11 @@ class _HomePageState extends State<HomePage> {
             title: Text("Reorderable List"),
             subtitle: Text("Testing how reorderable list works"),
           ),
+          ListTile(
+            onTap: () => Get.toNamed(Routes.dioPosts),
+            title: Text("Dio Posts"),
+            subtitle: Text("Testing Dio Http client"),
+          ),
         ],
       ),
     );

@@ -35,7 +35,7 @@ class ProductsStarted implements ProductsEvent {
   ) async* {
     yield ProductsLoading();
     try {
-      final products = await repository.fetch();
+      final products = await repository.fetchAll();
       yield ProductsLoaded(products);
     } on String catch (e) {
       yield ProductsFailure(e);
@@ -50,7 +50,7 @@ class ProductsRefreshed implements ProductsEvent {
     ProductsState state,
   ) async* {
     try {
-      final products = await repository.fetch();
+      final products = await repository.fetchAll();
       yield ProductsLoaded(products);
     } catch (e) {
       yield state;

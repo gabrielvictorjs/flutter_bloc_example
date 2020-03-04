@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../injection_container.dart';
 import '../blocs/filtered_products/filtered_products_bloc.dart';
 import '../blocs/products/products_bloc.dart';
+import '../widgets/bloc_state_mapper.dart';
 import '../widgets/products/failure_widget.dart';
 import '../widgets/products/loading_widget.dart';
 import '../widgets/products/products_widget.dart';
-import '../widgets/state_mapper_widget.dart';
 
 class ReorderablePage extends StatefulWidget {
   @override
@@ -53,21 +52,16 @@ class _ReorderablePageState extends State<ReorderablePage> {
 
   Widget _buildProducts() {
     return Expanded(
-      child: BlocBuilder<ProductsBloc, ProductsState>(
+      child: BlocStateMapper<ProductsBloc, ProductsState>(
         bloc: _productBloc,
-        builder: (_, state) {
-          return StateMapperWidget<ProductsState>(
-            currentState: state,
-            statesToWidgets: {
-              ProductsLoading: () => LoadingWidget(),
-              ProductsLoaded: () => ProductsWidget(),
-              ProductsFailure: () {
-                return FailureWidget(
-                  error: (state as ProductsFailure).error,
-                );
-              },
-            },
-          );
+        statesToWidgets: {
+          ProductsLoading: (_) => LoadingWidget(),
+          ProductsLoaded: (_) => ProductsWidget(),
+          ProductsFailure: (state) {
+            return FailureWidget(
+              error: (state as ProductsFailure).error,
+            );
+          },
         },
       ),
     );

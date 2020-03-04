@@ -1,7 +1,7 @@
 import '../models/product.dart';
 
 class ProductRepository {
-  Future<List<Product>> fetch() async {
+  Future<List<Product>> fetchAll() async {
     await Future.delayed(Duration(seconds: 2));
     // return [];
     // throw "Erro aqui man";
